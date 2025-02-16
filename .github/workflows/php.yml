@@ -65,4 +65,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./ # Diretório local a ser enviado
-          server-dir: /projeto-qa2 # Diretório remoto onde os arquivos serão enviados
+          server-dir: /projeto-qa2/ # Diretório remoto onde os arquivos serão enviados
