@@ -1,0 +1,54 @@
+@config_api.env
+
+@BASE_URL = http://localhost/api/v1
+
+### Create a new user
+POST {{BASE_URL}}/users
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Get the created user
+GET {{BASE_URL}}/users
+
+### Get the created user
+GET {{BASE_URL}}/user/1
+
+### Update the user
+PUT {{BASE_URL}}/users/1
+Content-Type: application/json
+
+{
+  "username": "updateduser",
+  "password": "newpassword123"
+}
+
+### Delete the user
+DELETE {{BASE_URL}}/users/1
+
+### Create a new product
+POST {{BASE_URL}}/products
+Content-Type: application/json
+
+{
+  "name": "Test Product",
+  "price": 19.99
+}
+
+### Get the created product
+GET {{BASE_URL}}/products/1
+
+### Update the product
+PUT {{BASE_URL}}/products/1
+Content-Type: application/json
+
+{
+  "name": "Updated Product",
+  "price": 29.99
+}
+
+### Delete the product
+DELETE {{BASE_URL}}/products/1

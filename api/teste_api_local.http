@@ -1,0 +1,61 @@
+@hostname = localhost/api/rotas.php
+@port = 8080
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@createdAt = {{$datetime iso8601}}
+@modifiedBy = {{$processEnv USERNAME}}
+@endpoint = usuarios
+
+###
+@user_name = QA
+@user_email= qa@adm.com
+
+DELETE http://{{hostname}}/{{endpoint}}
+Content-Type: {{contentType}}
+
+{
+  "nome": "{{user_name}}",
+  "email": "{{user_email}}"
+}
+
+###
+
+# @name obterUsuario
+
+GET http://{{hostname}}/{{endpoint}}
+Content-Type: {{contentType}}
+
+{
+  "nome": "{{user_name}}",
+  "email": "{{user_email}}"
+}
+
+###
+
+POST http://{{hostname}}/{{endpoint}}
+Content-Type: application/json
+
+{
+  "nome": "{{user_name}}",
+  "email": "{{user_email}}"
+}
+
+###
+
+PUT http://{{hostname}}/{{endpoint}}
+Content-Type: {{contentType}}
+
+{
+  "nome": "{{user_name}}",
+  "email": "{{user_email}}"
+}
+
+### GET https://{{host}}/api/{{version}}comments/1 HTTP/1.1
+
+GET http://{{hostname}}/{{endpoint}}
+Content-Type: {{contentType}}
+
+{
+  "nome": "{{user_name}}",
+  "email": "{{user_email}}"
+}

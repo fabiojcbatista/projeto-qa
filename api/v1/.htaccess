@@ -1,0 +1,23 @@
+# Redirecionar todas as requisições para index.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Bloquear acesso direto a arquivos sensíveis
+#<FilesMatch "(conexao.php|config.php)">
+#    Order Deny,Allow
+#    Deny from all
+#</FilesMatch>
+
+# ...existing code...
+<FilesMatch "(conexao.php|config.php)">
+    Require all denied
+</FilesMatch>
+# ...existing code...
+
+# Habilitar CORS (se necessário)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
