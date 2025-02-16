@@ -14,8 +14,8 @@
             "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\"\n}"
           },
           "url": {
-            "raw": "{{baseUrl}}/users",
-            "host": ["{{baseUrl}}"],
+            "raw": "http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/users",
+            "host": ["http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/"],
             "path": ["users"]
           }
         }
@@ -26,8 +26,8 @@
           "method": "GET",
           "header": [],
           "url": {
-            "raw": "{{baseUrl}}/users",
-            "host": ["{{baseUrl}}"],
+            "raw": "http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/users",
+            "host": ["http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/"],
             "path": ["users"]
           }
         }
@@ -38,8 +38,8 @@
           "method": "GET",
           "header": [],
           "url": {
-            "raw": "{{baseUrl}}/user/2",
-            "host": ["{{baseUrl}}"],
+            "raw": "http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/user/2",
+            "host": ["http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/"],
             "path": ["users", "2"]
           }
         }
@@ -54,8 +54,8 @@
             "raw": "{\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.doe.updated@example.com\"\n}"
           },
           "url": {
-            "raw": "{{baseUrl}}/users/1",
-            "host": ["{{baseUrl}}"],
+            "raw": "http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/users/1",
+            "host": ["http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/"],
             "path": ["users", "1"]
           }
         }
@@ -66,8 +66,8 @@
           "method": "DELETE",
           "header": [],
           "url": {
-            "raw": "{{baseUrl}}/users/2",
-            "host": ["{{baseUrl}}"],
+            "raw": "http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/users/2",
+            "host": ["http:/fabiojcb.atwebpages.com/projeto-qa/api/v1/"],
             "path": ["users", "2"]
           }
         }
