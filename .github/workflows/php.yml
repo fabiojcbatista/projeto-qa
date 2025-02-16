@@ -42,7 +42,16 @@ jobs:
       with:
         node-version: '18'
     
-    deploy:
+    - name: Install Newman
+      run: npm install -g newman
+
+    - name: Run Newman tests
+      env:
+        BASE_URL: ${{ secrets.BASE_URL }}
+        API_KEY: ${{ secrets.API_KEY }}
+      run: |
+        newman run api/v1/postman_collection.json -e api/v1/postman_environment.json --env-var "baseUrl=$BASE_URL" --env-var "apiKey=$API_KEY"
+deploy:
     needs: build
     runs-on: ubuntu-latest
 
@@ -57,13 +66,3 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./ # Diretório local a ser enviado
         server-dir: /projeto-qa2 # Diretório remoto onde os arquivos serão enviados
-
-    - name: Install Newman
-      run: npm install -g newman
-
-    - name: Run Newman tests
-    #  env:
-    #    BASE_URL: ${{ secrets.BASE_URL }}
-    #    API_KEY: ${{ secrets.API_KEY }}
-      run: |
-        newman run api/v1/postman_collection.json -e api/v1/postman_environment.json --env-var "baseUrl=$BASE_URL" --env-var "apiKey=$API_KEY"
