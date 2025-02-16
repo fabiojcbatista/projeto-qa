@@ -37,3 +37,14 @@ jobs:
 
     # - name: Run test suite
     #   run: composer run-script test
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install Newman
+      run: npm install -g newman
+
+    - name: Run Newman tests
+      run: |
+        newman run postman_collection.json -e postman_environment.json
