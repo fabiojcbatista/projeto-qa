@@ -1,0 +1,76 @@
+{
+    "info": {
+      "name": "CRUD Collection",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Create User",
+        "request": {
+          "method": "POST",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\"\n}"
+          },
+          "url": {
+            "raw": "{{baseUrl}}/users",
+            "host": ["{{baseUrl}}"],
+            "path": ["users"]
+          }
+        }
+      },
+      {
+        "name": "Get All Users",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{baseUrl}}/users",
+            "host": ["{{baseUrl}}"],
+            "path": ["users"]
+          }
+        }
+      },
+      {
+        "name": "Get User",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{baseUrl}}/user/2",
+            "host": ["{{baseUrl}}"],
+            "path": ["users", "2"]
+          }
+        }
+      },
+      {
+        "name": "Update User",
+        "request": {
+          "method": "PUT",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.doe.updated@example.com\"\n}"
+          },
+          "url": {
+            "raw": "{{baseUrl}}/users/1",
+            "host": ["{{baseUrl}}"],
+            "path": ["users", "1"]
+          }
+        }
+      },
+      {
+        "name": "Delete User",
+        "request": {
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "{{baseUrl}}/users/2",
+            "host": ["{{baseUrl}}"],
+            "path": ["users", "2"]
+          }
+        }
+      }
+    ]
+  }
