@@ -50,7 +50,7 @@ jobs:
         BASE_URL: ${{ secrets.BASE_URL }}
         API_KEY: ${{ secrets.API_KEY }}
       run: |
-        newman run api/v1/postman_collection.json -e api/v1/postman_environment.json --env-var "baseUrl=$BASE_URL" --env-var "apiKey=$API_KEY"
+        newman run http://fabiojcb.atwebpages.com/projeto-qa/api/v1/postman_collection.json -e http://fabiojcb.atwebpages.com/projeto-qa/api/v1/postman_environment.json --env-var "baseUrl=$BASE_URL" --env-var "apiKey=$API_KEY"
   deploy:
      needs: build
      runs-on: ubuntu-latest
@@ -80,5 +80,5 @@ jobs:
          BASE_URL: ${{ secrets.BASE_URL }}
          API_KEY: ${{ secrets.API_KEY }}
        run: |
-         newman run api/v1/postman_collection.json -e api/v1/postman_environment.json --env-var "baseUrl=$BASE_URL" --env-var "apiKey=$API_KEY"
+         newman run http://fabiojcb.atwebpages.com/projeto-qa/api/v1/postman_collection.json -e http://fabiojcb.atwebpages.com/projeto-qa/api/v1/postman_environment.json --env-var "baseUrl=$BASE_URL" --env-var "apiKey=$API_KEY"
 
