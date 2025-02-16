@@ -51,18 +51,18 @@ jobs:
         API_KEY: ${{ secrets.API_KEY }}
       run: |
         newman run api/v1/postman_collection.json -e api/v1/postman_environment.json --env-var "baseUrl=$BASE_URL" --env-var "apiKey=$API_KEY"
-deploy:
-    needs: build
-    runs-on: ubuntu-latest
+  deploy:
+     needs: build
+     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
+     steps:
+     - uses: actions/checkout@v4
 
-    - name: Deploy to FTP server
-      uses: SamKirkland/FTP-Deploy-Action@4.1.0
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./ # Diretório local a ser enviado
-        server-dir: /projeto-qa2 # Diretório remoto onde os arquivos serão enviados
+     - name: Deploy to FTP server
+       uses: SamKirkland/FTP-Deploy-Action@4.1.0
+       with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./ # Diretório local a ser enviado
+          server-dir: /projeto-qa2 # Diretório remoto onde os arquivos serão enviados
