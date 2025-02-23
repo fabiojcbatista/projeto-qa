@@ -22,4 +22,9 @@ class Product extends BaseModel {
         $conditions = ['codProduto' => $id];
         return $this->read($this->table, $conditions);
     }
+
+    public function deleteProductById($id) {
+        $conditions = ['codProduto' => $id];
+        return $this->delete($this->table, $conditions);
+    }
 }

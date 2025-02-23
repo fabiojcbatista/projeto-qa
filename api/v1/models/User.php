@@ -22,4 +22,9 @@ class User extends BaseModel {
         $conditions = ['idusuario' => $id];
         return $this->read($this->table, $conditions);
     }
+
+    public function deleteUserById($id) {
+        $conditions = ['idusuario' => $id];
+        return $this->delete($this->table, $conditions);
+    }
 }

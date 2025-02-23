@@ -37,7 +37,6 @@ class DatabaseHandler {
         
     // Função para ler registros (Select)
     public function read($table, $conditions = [], $columns = '*') {
-        //global $link;
         $where = '';
         $params = [];
         $types = '';
@@ -53,7 +52,7 @@ class DatabaseHandler {
         $result = mysqli_query($dataBase, $sql);
 
     if (!$result) {
-        return ['error' => 'Erro na consulta: ' . mysqli_error($dataBase)];
+        return ['error' => 'Select fail: ' . mysqli_error($dataBase)];
     }
 
     $data = [];
@@ -90,24 +89,29 @@ class DatabaseHandler {
 
     // Função para deletar registros (Delete)
     public function delete($table, $conditions) {
-        $where = implode(" AND ", array_map(function($k) { return "$k = ?"; }, array_keys($conditions)));
+        $where = '';
+        $params = [];
+        $types = '';
+        $dataBase =$this->db;
+       
+        if (!empty($conditions)) {
+            $where = 'WHERE ' . implode(' AND ', array_map(function($k, $v) use ($dataBase) {
+                return "$k = '" . mysqli_real_escape_string($dataBase, $v) . "'";
+            }, array_keys($conditions), $conditions));
+        }
 
         $sql = "DELETE FROM $table WHERE $where";
-        $stmt = mysqli_prepare($this->link, $sql);
+        $result = mysqli_query($dataBase, $sql);
 
-        if (!$stmt) {
-            return ['error' => 'Failed to prepare query'];
-        }
+    if (!$result) {
+        return ['error' => 'Delete fail: ' . mysqli_error($dataBase)];
+    }
 
-        $params = array_values($conditions);
-        $types = str_repeat("s", count($params));
-
-        mysqli_stmt_bind_param($stmt, $types, ...$params);
-
-        if (mysqli_stmt_execute($stmt)) {
-            return ['success' => 'Record deleted successfully'];
-        }
-
-        return ['error' => 'Delete failed'];
+    $data = [];
+   while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+   
+    return $data;
     }
 }

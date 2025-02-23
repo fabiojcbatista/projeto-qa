@@ -33,6 +33,11 @@ class ProductController extends ResponseHelper {
         return $this->response($productDTOs, 200);
     }
 
+    public function deleteProductById($productId) {
+        $products = $this->productModel->deleteProductById($productId);
+        return $this->responseFail('Not Content', 204);
+    }
+
     public function createProduct($data) {
         return $this->productModel->create($data);
     }

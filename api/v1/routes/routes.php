@@ -57,6 +57,28 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/product/:productId' => function($productId) use ($productController, $input) {
                 return $productController->getProductById($productId);
             },
+        ],
+        'PUT' => [
+            '/projeto-qa/api/v1/users' => function() use ($userController, $input) {
+                return $userController->getUsers();
+            },
+            '/projeto-qa/api/v1/user/:userId' => function($userId) use ($userController, $input) {
+                return $userController->getUserById($userId);
+            },
+            '/projeto-qa/api/v1/products' => function() use ($productController, $input) {
+                return $productController->getProducts();
+            },
+            '/projeto-qa/api/v1/product/:productId' => function($productId) use ($productController, $input) {
+                return $productController->getProductById($productId);
+            },
+        ],
+        'DELETE' => [
+           '/projeto-qa/api/v1/user/:userId' => function($userId) use ($userController, $input) {
+                return $userController->deleteUserById($userId);
+            },
+            '/projeto-qa/api/v1/product/:productId' => function($productId) use ($productController, $input) {
+                return $productController->deleteProductById($productId);
+            },
         ]
     ];
 

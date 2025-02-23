@@ -32,6 +32,11 @@ class UserController extends ResponseHelper {
         }, $user);
         return $this->response($userDTOs, 200);
     }
+
+    public function deleteUserById($userId) {
+        $user = $this->userModel->deleteUserById($userId);
+        return $this->responseFail('Not content', 204);
+    }
         
     public function createUser($data) {
         $userModel = new User($this->userModel);
