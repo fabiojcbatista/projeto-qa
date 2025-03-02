@@ -1,6 +1,6 @@
 @config_api.env
 
-@BASE_URL = http://localhost/api/v1
+@BASE_URL = http://localhost/projeto-qa/api/v1
 
 ### Create a new user
 POST {{BASE_URL}}/users
@@ -15,7 +15,7 @@ Content-Type: application/json
 GET {{BASE_URL}}/users
 
 ### Get the created user
-GET {{BASE_URL}}/user/1
+GET {{BASE_URL}}/users/2
 
 ### Update the user
 PUT {{BASE_URL}}/users/1
@@ -39,10 +39,10 @@ Content-Type: application/json
 }
 
 ### Get the created product
-GET {{BASE_URL}}/products/1
+GET {{BASE_URL}}/products/2
 
 ### Update the product
-PUT {{BASE_URL}}/products/1
+PUT {{BASE_URL}}/products/2
 Content-Type: application/json
 
 {
@@ -51,4 +51,4 @@ Content-Type: application/json
 }
 
 ### Delete the product
-DELETE {{BASE_URL}}/products/1
+DELETE {{BASE_URL}}/products/2

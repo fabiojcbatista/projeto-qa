@@ -41,20 +41,20 @@ function handleRequest($db) {
                 return $authController->login($input);
             },
             '/projeto-qa/api/v1/users' => function() use ($userController, $input) {
-                return $userController->login($input);
+                return $userController->createUser($input);
             },
         ],
         'GET' => [
             '/projeto-qa/api/v1/users' => function() use ($userController, $input) {
                 return $userController->getUsers();
             },
-            '/projeto-qa/api/v1/user/:userId' => function($userId) use ($userController, $input) {
+            '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
                 return $userController->getUserById($userId);
             },
             '/projeto-qa/api/v1/products' => function() use ($productController, $input) {
                 return $productController->getProducts();
             },
-            '/projeto-qa/api/v1/product/:productId' => function($productId) use ($productController, $input) {
+            '/projeto-qa/api/v1/products/:productId' => function($productId) use ($productController, $input) {
                 return $productController->getProductById($productId);
             },
         ],
@@ -62,21 +62,21 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/users' => function() use ($userController, $input) {
                 return $userController->getUsers();
             },
-            '/projeto-qa/api/v1/user/:userId' => function($userId) use ($userController, $input) {
+            '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
                 return $userController->getUserById($userId);
             },
             '/projeto-qa/api/v1/products' => function() use ($productController, $input) {
                 return $productController->getProducts();
             },
-            '/projeto-qa/api/v1/product/:productId' => function($productId) use ($productController, $input) {
+            '/projeto-qa/api/v1/products/:productId' => function($productId) use ($productController, $input) {
                 return $productController->getProductById($productId);
             },
         ],
         'DELETE' => [
-           '/projeto-qa/api/v1/user/:userId' => function($userId) use ($userController, $input) {
+           '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
                 return $userController->deleteUserById($userId);
             },
-            '/projeto-qa/api/v1/product/:productId' => function($productId) use ($productController, $input) {
+            '/projeto-qa/api/v1/products/:productId' => function($productId) use ($productController, $input) {
                 return $productController->deleteProductById($productId);
             },
         ]

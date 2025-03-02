@@ -40,7 +40,11 @@ class UserController extends ResponseHelper {
         
     public function createUser($data) {
         $userModel = new User($this->userModel);
-        return $userModel->create($data);
+        $user =  $userModel->createUser($data);
+        if (empty($user)) {
+            return $this->responseFail('Nenhum registro criado', 404);
+        }
+        return $this->response(new UserDTO($user), 201);
     }
   }
 

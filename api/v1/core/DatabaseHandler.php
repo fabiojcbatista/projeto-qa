@@ -1,7 +1,6 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
 $data=date("y-m-d H:i:s");
-//require_once("conexao.php");
 require_once __DIR__ . '/../config/database.php';
 
 class DatabaseHandler {
@@ -12,29 +11,26 @@ class DatabaseHandler {
        $this->db = $database->connect();
     }
 
-    // Função para criar registros (Insert)
     public function create($table, $data) {
+        $dataBase =$this->db;
         $columns = implode(", ", array_keys($data));
-        $placeholders = implode(", ", array_fill(0, count($data), "?"));
+        $values = implode(", ", array_map([$this, 'quoteValue'], array_values($data)));
+       
         
-        $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-        $stmt = mysqli_prepare($this->link, $sql);
-        
-        if (!$stmt) {
-            return ['error' => 'Failed to prepare query'];
-        }
+        $sql = "INSERT INTO $table ($columns) VALUES ($values)";
+        $result = mysqli_query($dataBase, $sql);
 
-        // Bind parameters
-        $types = str_repeat("s", count($data)); // Assuming all data is strings
-        mysqli_stmt_bind_param($stmt, $types, ...array_values($data));
-        
-        if (mysqli_stmt_execute($stmt)) {
-            return ['success' => 'Record inserted successfully'];
+        if (!$result) {
+            return ['error' => 'Insert fail: ' . mysqli_error($dataBase)];
         }
-        
-        return ['error' => 'Insert failed'];
+       
+        return $data;
     }
-        
+
+    protected function quoteValue($value) {
+        return "'" . mysqli_real_escape_string($this->db, $value) . "'";
+    }
+
     // Função para ler registros (Select)
     public function read($table, $conditions = [], $columns = '*') {
         $where = '';
@@ -100,7 +96,7 @@ class DatabaseHandler {
             }, array_keys($conditions), $conditions));
         }
 
-        $sql = "DELETE FROM $table WHERE $where";
+        $sql = "DELETE FROM $table $where";
         $result = mysqli_query($dataBase, $sql);
 
     if (!$result) {

@@ -27,4 +27,15 @@ class User extends BaseModel {
         $conditions = ['idusuario' => $id];
         return $this->delete($this->table, $conditions);
     }
+
+    public function createUser($data) {
+        $fields = [
+            'IDUSUARIO' => $data['IDUSUARIO'],
+            'NOMEUSUARIO' => $data['NOMEUSUARIO'],
+            'LOGINUSUARIO' => $data['LOGINUSUARIO'],
+            'SENHAUSUARIO' => $data['SENHAUSUARIO'],
+            'NIVELUSUARIO' => $data['NIVELUSUARIO']
+        ];
+        return $this->create($this->table, $fields);
+    }
 }
