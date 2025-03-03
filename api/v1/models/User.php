@@ -29,6 +29,13 @@ class User extends BaseModel {
     }
 
     public function createUser($data) {
+          // Validação dos campos obrigatórios
+          $requiredFields = ['IDUSUARIO', 'NOMEUSUARIO', 'LOGINUSUARIO', 'SENHAUSUARIO', 'NIVELUSUARIO'];
+          foreach ($requiredFields as $field) {
+              if (empty($data[$field])) {
+                  return ['error' => "Field $field is required"];
+              }
+          }
         $fields = [
             'IDUSUARIO' => $data['IDUSUARIO'],
             'NOMEUSUARIO' => $data['NOMEUSUARIO'],
@@ -38,4 +45,26 @@ class User extends BaseModel {
         ];
         return $this->create($this->table, $fields);
     }
+
+    public function updateUserById($data,$id) {
+        $conditions = ['idusuario' => $id];
+        $fields = [];
+        if (!empty($data['NOMEUSUARIO'])) {
+            $fields['NOMEUSUARIO'] = $data['NOMEUSUARIO'];
+        }
+        if (!empty($data['LOGINUSUARIO'])) {
+            $fields['LOGINUSUARIO'] = $data['LOGINUSUARIO'];
+        }
+        if (!empty($data['SENHAUSUARIO'])) {
+            $fields['SENHAUSUARIO'] = $data['SENHAUSUARIO'];
+        }
+        if (!empty($data['NIVELUSUARIO'])) {
+            $fields['NIVELUSUARIO'] = $data['NIVELUSUARIO'];
+        }
+
+        if (empty($fields)) {
+            return ['error' => 'No fields to update'];
+        }
+        return  $this->update($this->table, $fields,$conditions);
+     }
 }

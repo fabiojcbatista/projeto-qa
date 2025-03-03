@@ -27,4 +27,38 @@ class Product extends BaseModel {
         $conditions = ['codProduto' => $id];
         return $this->delete($this->table, $conditions);
     }
+
+    public function createProduct($data) {
+        $requiredFields = ['codProduto', 'nmProduto', 'vlProduto', 'dtProduto', 'qtProduto'];
+        $fields = [
+            'codProduto' => $data['codProduto'],
+            'nmProduto' => $data['nmProduto'],
+            'vlProduto' => $data['vlProduto'],
+            'dtProduto' => $data['dtProduto'],
+            'qtProduto' => $data['qtProduto']
+        ];
+        return $this->create($this->table, $fields);
+    }
+
+    public function updateProductById($data,$id) {
+        $conditions = ['codProduto' => $id];
+        $fields = [];
+        if (!empty($data['nmProduto'])) {
+            $fields['nmProduto'] = $data['nmProduto'];
+        }
+        if (!empty($data['vlProduto'])) {
+            $fields['vlProduto'] = $data['vlProduto'];
+        }
+        if (!empty($data['dtProduto'])) {
+            $fields['dtProduto'] = $data['dtProduto'];
+        }
+        if (!empty($data['qtProduto'])) {
+            $fields['qtProduto'] = $data['qtProduto'];
+        }
+
+        if (empty($fields)) {
+            return ['error' => 'No fields to update'];
+        }
+        return  $this->update($this->table, $fields,$conditions);
+     }
 }

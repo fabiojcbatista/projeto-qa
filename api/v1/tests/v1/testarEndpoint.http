@@ -7,8 +7,11 @@ POST {{BASE_URL}}/users
 Content-Type: application/json
 
 {
-  "username": "testuser",
-  "password": "password123"
+  "IDUSUARIO":"9",
+  "NOMEUSUARIO": "NOMEUSUARIO",
+  "LOGINUSUARIO": "qa@qa2.com",
+  "SENHAUSUARIO": "SENHAUSUARIO",
+  "NIVELUSUARIO": "1"
 }
 
 ### Get the created user
@@ -22,8 +25,11 @@ PUT {{BASE_URL}}/users/1
 Content-Type: application/json
 
 {
-  "username": "updateduser",
-  "password": "newpassword123"
+  "IDUSUARIO":"9",
+  "NOMEUSUARIO": "NOMEUSUARIO",
+  "LOGINUSUARIO": "qa@qa2.com",
+  "SENHAUSUARIO": "SENHAUSUARIO",
+  "NIVELUSUARIO": "1"
 }
 
 ### Delete the user

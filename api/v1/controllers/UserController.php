@@ -46,5 +46,17 @@ class UserController extends ResponseHelper {
         }
         return $this->response(new UserDTO($user), 201);
     }
+
+    public function updateUserById($userId,$data) {
+        $userModel = new User($this->userModel);
+        $user =  $userModel->updateUserById($data,$userId);
+        if (empty($user)) {
+            return $this->responseFail('Nenhum registro atualizado', 404);
+        }
+        $userDTOs = array_map(function($userData) {
+            return (new UserDTO($userData))->toArray();
+        }, $user);
+        return $this->response($userDTOs, 201);
+    }
   }
 

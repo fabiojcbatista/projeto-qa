@@ -39,6 +39,23 @@ class ProductController extends ResponseHelper {
     }
 
     public function createProduct($data) {
-        return $this->productModel->create($data);
+        $productModel = new Product($this->productModel);
+        $product =  $productModel->createProduct($data);
+        if (empty($product)) {
+            return $this->responseFail('Nenhum registro criado', 404);
+        }
+        return $this->response(new ProductDTO($product), 201);
     }
-}
+
+    public function updateProductById($productId,$data) {
+        $productModel = new Product($this->productModel);
+        $product =  $productModel->updateProductById($data,$productId);
+        if (empty($product)) {
+            return $this->responseFail('Nenhum registro atualizado', 404);
+        }
+        $productDTOs = array_map(function($productData) {
+            return (new ProductDTO($productData))->toArray();
+        }, $product);
+        return $this->response($productDTOs, 201);
+    }
+  }
