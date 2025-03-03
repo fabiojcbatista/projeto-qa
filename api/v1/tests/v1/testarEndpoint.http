@@ -2,15 +2,20 @@
 
 @BASE_URL = http://localhost/projeto-qa/api/v1
 
+### USER #############################################
+
+### Delete the user
+DELETE {{BASE_URL}}/users/1
+
 ### Create a new user
 POST {{BASE_URL}}/users
 Content-Type: application/json
 
 {
-  "IDUSUARIO":"9",
-  "NOMEUSUARIO": "NOMEUSUARIO",
-  "LOGINUSUARIO": "qa@qa2.com",
-  "SENHAUSUARIO": "SENHAUSUARIO",
+  "IDUSUARIO":"1",
+  "NOMEUSUARIO": "User Test",
+  "LOGINUSUARIO": "userteste@qa.com",
+  "SENHAUSUARIO": "usertestqa",
   "NIVELUSUARIO": "1"
 }
 
@@ -18,43 +23,52 @@ Content-Type: application/json
 GET {{BASE_URL}}/users
 
 ### Get the created user
-GET {{BASE_URL}}/users/2
+GET {{BASE_URL}}/users/1
 
 ### Update the user
 PUT {{BASE_URL}}/users/1
 Content-Type: application/json
 
 {
-  "IDUSUARIO":"9",
-  "NOMEUSUARIO": "NOMEUSUARIO",
-  "LOGINUSUARIO": "qa@qa2.com",
-  "SENHAUSUARIO": "SENHAUSUARIO",
-  "NIVELUSUARIO": "1"
+   "NIVELUSUARIO": "2"
 }
 
 ### Delete the user
 DELETE {{BASE_URL}}/users/1
 
+### PRODUCT #############################################
+
+### Delete the product
+DELETE {{BASE_URL}}/products/1
+
 ### Create a new product
 POST {{BASE_URL}}/products
 Content-Type: application/json
 
-{
-  "name": "Test Product",
-  "price": 19.99
-}
+   {
+      "codProduto": "1",
+      "nmProduto": "Celular Xiaomi rednote",
+      "vlProduto": "1000.00",
+      "dtProduto": "0000-00-00 00:00:00",
+      "qtProduto": "100"
+    }
 
 ### Get the created product
-GET {{BASE_URL}}/products/2
+GET {{BASE_URL}}/products
+
+### Get the created product
+GET {{BASE_URL}}/products/1
 
 ### Update the product
-PUT {{BASE_URL}}/products/2
+PUT {{BASE_URL}}/products/1
 Content-Type: application/json
 
-{
-  "name": "Updated Product",
-  "price": 29.99
-}
+  {
+      "nmProduto": "Celular Xiaomi rednote update",
+      "vlProduto": "1000.00",
+      "dtProduto": "0000-00-00 00:00:00",
+      "qtProduto": "100"
+    }
 
 ### Delete the product
-DELETE {{BASE_URL}}/products/2
+DELETE {{BASE_URL}}/products/1

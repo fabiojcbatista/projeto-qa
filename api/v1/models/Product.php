@@ -30,6 +30,12 @@ class Product extends BaseModel {
 
     public function createProduct($data) {
         $requiredFields = ['codProduto', 'nmProduto', 'vlProduto', 'dtProduto', 'qtProduto'];
+foreach ($requiredFields as $field) {
+            if (empty($data[$field])) {
+                return ['error' => "Field $field is required"];
+            }
+        }
+
         $fields = [
             'codProduto' => $data['codProduto'],
             'nmProduto' => $data['nmProduto'],
@@ -37,7 +43,14 @@ class Product extends BaseModel {
             'dtProduto' => $data['dtProduto'],
             'qtProduto' => $data['qtProduto']
         ];
-        return $this->create($this->table, $fields);
+        
+        $result = $this->create($this->table, $fields);
+
+        if (isset($result['error'])) {
+            return ['error' => 'Failed to create product', 'details' => $result['error']];
+        }
+
+        return $result;
     }
 
     public function updateProductById($data,$id) {

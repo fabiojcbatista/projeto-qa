@@ -34,28 +34,30 @@ class ProductController extends ResponseHelper {
     }
 
     public function deleteProductById($productId) {
-        $products = $this->productModel->deleteProductById($productId);
-        return $this->responseFail('Not Content', 204);
+        $result = $this->productModel->deleteProductById($productId);
+        if (isset($result['error'])) {
+            return $this->responseFail('Erro ao deletar o produto', 500);
+        }
+        return $this->response(['message' => 'Produto deletado com sucesso'], 204);
     }
 
     public function createProduct($data) {
-        $productModel = new Product($this->productModel);
-        $product =  $productModel->createProduct($data);
-        if (empty($product)) {
-            return $this->responseFail('Nenhum registro criado', 404);
+        $product = $this->productModel->createProduct($data);
+        if (isset($product['error'])) {
+            return $this->responseFail('Erro ao criar o produto', 500);
         }
         return $this->response(new ProductDTO($product), 201);
     }
 
-    public function updateProductById($productId,$data) {
-        $productModel = new Product($this->productModel);
-        $product =  $productModel->updateProductById($data,$productId);
-        if (empty($product)) {
-            return $this->responseFail('Nenhum registro atualizado', 404);
+    public function updateProductById($productId, $data) {
+        $product = $this->productModel->updateProductById($data, $productId);
+        if (isset($product['error'])) {
+            return $this->responseFail('Erro ao atualizar o produto', 500);
         }
         $productDTOs = array_map(function($productData) {
             return (new ProductDTO($productData))->toArray();
         }, $product);
-        return $this->response($productDTOs, 201);
+        return $this->response($productDTOs, 200);
     }
-  }
+}
+?>
