@@ -10,17 +10,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             const response = await loginUser(email, senha);
-            if (response.success) {
-                // Redirecionar para a página principal ou dashboard
-                window.location.href = '/produtos.html';
+            if (!response) {
+                showError(response.message);     
             } else {
-                showError(response.message);
+                efetuarLogin();
             }
         } catch (error) {
             showError('Erro ao tentar fazer login. Tente novamente mais tarde.');
         }
     });
 }
+
+function efetuarLogin() {
+    window.open(`produtos.html?teste=123`, '_self');
+}
+
 
     function showError(message) {
         errorMessage.classList.remove('esconder');
