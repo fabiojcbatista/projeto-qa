@@ -16,12 +16,13 @@ btnAdicionar.addEventListener('click', (e) =>{
     abrirModalProdutos();
 });
 
-modal.btnSalvar.addEventListener('click', (e) =>{
+modal.btnSalvar.addEventListener('click', async (e) =>{
     e.preventDefault();
-    cadastro();
+    await cadastro();
     limparCampos();
     fecharModalProdutos();
-    buscarProdutos();  
+    buscarProdutos();
+    mostrarSucesso('Operação realizada com sucesso');
 });
 
 modal.btnSair.addEventListener('click', (e) =>{
@@ -31,15 +32,11 @@ modal.btnSair.addEventListener('click', (e) =>{
 });
 
 function abrirModalProdutos(){
-    $("#btn-adicionar").click(function(){
-        $("#cadastro-produto").modal({backdrop: "static"});
-    });
+    $("#cadastro-produto").modal({backdrop: "static"});
 }
 
 function fecharModalProdutos(){
-    $("#btn-sair").click(function(){
-        $("#cadastro-produto").modal("hide");
-    });
+    $("#cadastro-produto").modal("hide");
 }
 
 function limparCampos(){
@@ -55,6 +52,7 @@ function limparCampos(){
 document.addEventListener('DOMContentLoaded', function() {
     const tabelaProdutos = document.querySelector('table tbody');
     const mensagemErro = document.querySelector('.alert-danger');
+    const mensagemSucesso = document.querySelector('.alert-success');
 
     // Função para buscar todos os produtos
     async function buscarProdutos() {
@@ -100,7 +98,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para mostrar mensagens de erro
     function mostrarErro(mensagem) {
         mensagemErro.classList.remove('esconder');
-        document.getElementById('mensagem').textContent = mensagem;
+        mensagemErro.textContent = mensagem;
+    }
+
+    // Função para mostrar mensagens de sucesso
+    function mostrarSucesso(mensagem) {
+        mensagemSucesso.classList.remove('esconder');
+        mensagemSucesso.textContent = mensagem;
     }
 
     // Buscar produtos ao carregar a página
