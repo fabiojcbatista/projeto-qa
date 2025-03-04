@@ -1,6 +1,7 @@
 @config_api.env
 
-@BASE_URL = http://localhost/projeto-qa/api/v1
+#@BASE_URL = http://localhost/projeto-qa/api/v1
+@BASE_URL = http://fabiojcb.atwebpages.com/projeto-qa/api/v1
 
 ### USER #############################################
 

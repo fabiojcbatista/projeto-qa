@@ -12,8 +12,9 @@ class AuthController extends ResponseHelper {
 
     public function login($data) {      
         if (!isset($data['email'], $data['senha'])) return $this->responseFail('Email and password are required', 400);
-        $user = $this->userModel->findUserByEmail(trim($data['email']));
-        if ($data['senha'] !== $user['SENHAUSUARIO']) return $this->responseFail('Invalid email or password',401);
-        return $this->response((new UserDTO($user))->toArray(), 200);
+        $user = $this->userModel->getUserByEmail(trim($data['email']));
+        if (empty($user)) return $this->responseFail('Invalid email or password',401);
+        if ($data['senha'] !== $user[0]['SENHAUSUARIO']) return $this->responseFail('Invalid email or password',401);
+        return $this->response((new UserDTO($user[0]))->toArray(), 200);
     }
  }
