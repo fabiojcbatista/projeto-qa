@@ -13,7 +13,7 @@ var modal = {
 
 // Função para buscar produtos da API e adicionar à tabela
 function buscarProdutos() {
-    fetch('http://localhost/api/rotas.php/produtos') // Substitua pela URL correta da sua API
+    fetch('http://fabiojcb.atwebpages.com/projeto-qa/api/v1/products') // Substitua pela URL correta da sua API
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro na requisição à API');

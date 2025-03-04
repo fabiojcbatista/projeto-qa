@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('login-form');
-    const errorMessage = document.getElementById('error-message');
+    const loginForm = document.querySelector('.form-login');
+    const errorMessage = document.querySelector('.alert-danger');
 
+    if (loginForm) {
     loginForm.addEventListener('submit', async function(event) {
         event.preventDefault();
         const email = document.getElementById('email').value;
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showError('Erro ao tentar fazer login. Tente novamente mais tarde.');
         }
     });
+}
 
     function showError(message) {
         errorMessage.classList.remove('esconder');
