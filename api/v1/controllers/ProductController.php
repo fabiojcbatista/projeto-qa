@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../models/Product.php';
 require_once __DIR__ . '/../dto/ProductDTO.php';
 require_once __DIR__ . '/../helpers/ResponseHelper.php';
-header('Content-Type: application/json');
 
 class ProductController extends ResponseHelper {
     private $productModel;

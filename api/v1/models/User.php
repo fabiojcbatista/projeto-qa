@@ -1,7 +1,5 @@
 <?php
 require_once 'BaseModel.php';
-header('Content-Type: application/json');
-
 date_default_timezone_set('America/Sao_Paulo');
 $data = date("y-m-d H:i:s");
 

@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../dto/UserDTO.php';
 require_once __DIR__ . '/../helpers/ResponseHelper.php'; 
-header('Content-Type: application/json');
 
 class UserController extends ResponseHelper {
     private $userModel;
@@ -62,4 +61,3 @@ if (isset($result['error'])) {
     }
   }
 ?>
-
