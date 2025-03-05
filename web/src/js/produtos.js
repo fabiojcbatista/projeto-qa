@@ -50,7 +50,7 @@ function exibirProdutos(produtos) {
             botao.addEventListener('click', async function() {
                 const produtoId = this.getAttribute('data-id');
                 const produto = await buscarProdutoPorId(produtoId);
-                preencherModal(produto);
+                preencherModal(produto.data[0]);
                 abrirModalProdutos();
             });
         });
