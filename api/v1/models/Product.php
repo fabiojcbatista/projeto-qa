@@ -28,7 +28,7 @@ class Product extends BaseModel {
     }
 
     public function createProduct($data) {
-        $requiredFields = ['codProduto', 'nmProduto', 'vlProduto', 'dtProduto', 'qtProduto'];
+        $requiredFields = ['nmProduto', 'vlProduto', 'dtProduto', 'qtProduto'];
 foreach ($requiredFields as $field) {
             if (empty($data[$field])) {
                 return ['error' => "Field $field is required"];
