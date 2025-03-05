@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 efetuarLogin();
             }
         } catch (error) {
-            showError('Erro ao tentar fazer login. Tente novamente mais tarde.');
+            showError('Usuário ou senha inválida.');
         }
     });
 }
@@ -41,7 +41,7 @@ function efetuarLogin() {
         });
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            showError('Erro de conexão com banco de dados.');
         }
 
         return response.json();

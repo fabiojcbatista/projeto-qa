@@ -15,13 +15,13 @@ async function buscarProdutos() {
         });
 
         if (!response.ok) {
-            throw new Error('Erro ao buscar produtos');
+            showError('Erro ao buscar registros.');
         }
 
         const produtos = await response.json();
         exibirProdutos(produtos.data);
     } catch (error) {
-        mostrarErro('Erro ao tentar buscar produtos. Tente novamente mais tarde.');
+        showError('Erro ao buscar registros.');
     }
 }
 
@@ -78,12 +78,12 @@ async function buscarProdutoPorId(produtoId) {
         });
 
         if (!response.ok) {
-            throw new Error('Erro ao buscar produto');
+            showError('Erro ao buscar registros.');
         }
 
         return response.json();
     } catch (error) {
-        mostrarErro('Erro ao tentar buscar o produto. Tente novamente mais tarde.');
+        showError('Erro ao buscar registros.');
     }
 }
 
@@ -179,8 +179,13 @@ async function cadastro(){
             showError(response.message);     
         } 
     } catch (error) {
-        showError('Erro ao tentar fazer login. Tente novamente mais tarde.');
+        showError('Erro ao tentar fazer cadastro.');
     }
+}
+
+function showError(message) {
+    errorMessage.classList.remove('esconder');
+    document.getElementById('mensagem').textContent = message;
 }
 
 async function cadastroProduto(data) {
@@ -193,7 +198,7 @@ async function cadastroProduto(data) {
     });
 
     if (!response.ok) {
-        throw new Error('Network response was not ok');
+        showError('Erro ao cadastrar.');
     }
 
     return response.json();
@@ -210,12 +215,12 @@ async function excluirProduto(produtoId) {
         });
 
         if (!response.ok) {
-            throw new Error('Erro ao excluir produto');
+            showError('Erro ao excluir registros.');
         }
 
         return response.json();
     } catch (error) {
-        mostrarErro('Erro ao tentar excluir o produto. Tente novamente mais tarde.');
+        showError('Erro ao excluir registros.');
     }
 }
 
@@ -231,10 +236,10 @@ async function atualizarProduto() {
         };
         const response = await atualizarProdutoAPI(data);
         if (!response) {
-            mostrarErro(response.message);     
+            showError('Erro ao atualizar registros.'); 
         } 
     } catch (error) {
-        mostrarErro('Erro ao tentar atualizar o produto. Tente novamente mais tarde.');
+        showError('Erro ao atualizar registros.');
     }
 }
 
@@ -248,7 +253,7 @@ async function atualizarProdutoAPI(data) {
     });
 
     if (!response.ok) {
-        throw new Error('Network response was not ok');
+        showError('Erro ao atualizar registros.');
     }
 
     return response.json();
