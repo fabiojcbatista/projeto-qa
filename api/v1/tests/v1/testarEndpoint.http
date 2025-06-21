@@ -73,3 +73,36 @@ Content-Type: application/json
 
 ### Delete the product
 DELETE {{BASE_URL}}/products/1
+
+
+### ACCOUNT #############################################
+
+### Delete the product
+DELETE {{BASE_URL}}/accounts/1
+
+### Create a new product
+POST {{BASE_URL}}/accounts
+Content-Type: application/json
+
+   {
+      "descricao": "Aluguel",
+      "tipo": "D"
+    }
+
+### Get the created product
+GET {{BASE_URL}}/accounts
+
+### Get the created product
+GET {{BASE_URL}}/accounts/1
+
+### Update the product
+PUT {{BASE_URL}}/accounts/1
+Content-Type: application/json
+
+  {
+      "descricao": "Aluguel",
+      "tipo": "D"
+    }
+
+### Delete the product
+DELETE {{BASE_URL}}/accounts/1

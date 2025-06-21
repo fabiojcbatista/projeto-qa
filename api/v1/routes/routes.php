@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../controllers/AuthController.php';
 require_once __DIR__ . '/../controllers/UserController.php';
 require_once __DIR__ . '/../controllers/ProductController.php';
+require_once __DIR__ . '/../controllers/AccountController.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -41,6 +42,7 @@ function handleRequest($db) {
     $authController = new AuthController($db);
     $userController = new UserController($db);
     $productController = new ProductController($db);
+    $accountController = new AccountController($db);
     $routes = [
         'POST' => [
             '/projeto-qa/api/v1/login' => function() use ($authController, $input) {
@@ -51,6 +53,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/products' => function() use ($productController, $input) {
                 return $productController->createProduct($input);
+            },
+            '/projeto-qa/api/v1/accounts' => function() use ($accountController, $input) {
+                return $accountController->createAccount($input);
             },
         ],
         'GET' => [
@@ -66,6 +71,12 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/products/:productId' => function($productId) use ($productController, $input) {
                 return $productController->getProductById($productId);
             },
+            '/projeto-qa/api/v1/accounts' => function() use ($accountController, $input) {
+                return $accountController->getAccounts();
+            },
+            '/projeto-qa/api/v1/accounts/:accountId' => function($accountId) use ($accountController, $input) {
+                return $accountController->getAccountById($accountId);
+            },
         ],
         'PUT' => [
             '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -74,6 +85,9 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/products/:productId' => function($productId) use ($productController, $input) {
                 return $productController->UpdateProductById($productId,$input);
             },
+            '/projeto-qa/api/v1/accounts/:accountId' => function($accountId) use ($accountController, $input) {
+                return $accountController->UpdateAccountById($accountId,$input);
+            },
         ],
         'DELETE' => [
            '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -81,6 +95,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/products/:productId' => function($productId) use ($productController, $input) {
                 return $productController->deleteProductById($productId);
+            },
+            '/projeto-qa/api/v1/accounts/:accountId' => function($accountId) use ($accountController, $input) {
+                return $accountController->deleteAccountById($accountId);
             },
         ]
     ];
