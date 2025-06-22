@@ -3,6 +3,7 @@ require_once __DIR__ . '/../controllers/AuthController.php';
 require_once __DIR__ . '/../controllers/UserController.php';
 require_once __DIR__ . '/../controllers/ProductController.php';
 require_once __DIR__ . '/../controllers/AccountController.php';
+require_once __DIR__ . '/../controllers/AccountTransactionController.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -43,6 +44,7 @@ function handleRequest($db) {
     $userController = new UserController($db);
     $productController = new ProductController($db);
     $accountController = new AccountController($db);
+    $accountTransactionController = new AccountTransactionController($db);
     $routes = [
         'POST' => [
             '/projeto-qa/api/v1/login' => function() use ($authController, $input) {
@@ -56,6 +58,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/accounts' => function() use ($accountController, $input) {
                 return $accountController->createAccount($input);
+            },
+            '/projeto-qa/api/v1/accountTransactions' => function() use ($accountTransactionController, $input) {
+                return $accountTransactionController->createAccountTransaction($input);
             },
         ],
         'GET' => [
@@ -77,6 +82,12 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/accounts/:accountId' => function($accountId) use ($accountController, $input) {
                 return $accountController->getAccountById($accountId);
             },
+            '/projeto-qa/api/v1/accountTransactions' => function() use ($accountTransactionController, $input) {
+                return $accountTransactionController->getAccountTransactions();
+            },
+            '/projeto-qa/api/v1/accountTransactions/:accountTransactionId' => function($accountTransactionId) use ($accountTransactionController, $input) {
+                return $accountTransactionController->getAccountTransactionById($accountTransactionId);
+            },
         ],
         'PUT' => [
             '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -88,6 +99,9 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/accounts/:accountId' => function($accountId) use ($accountController, $input) {
                 return $accountController->UpdateAccountById($accountId,$input);
             },
+            '/projeto-qa/api/v1/accountTransactions/:accountTransactionId' => function($accountTransactionId) use ($accountTransactionController, $input) {
+                return $accountTransactionController->UpdateAccountTransactionById($accountTransactionId,$input);
+            },
         ],
         'DELETE' => [
            '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -98,6 +112,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/accounts/:accountId' => function($accountId) use ($accountController, $input) {
                 return $accountController->deleteAccountById($accountId);
+            },
+            '/projeto-qa/api/v1/accountTransactions/:accountTransactionId' => function($accountTransactionId) use ($accountTransactionController, $input) {
+                return $accountTransactionController->deleteAccountTransactionById($accountTransactionId);
             },
         ]
     ];

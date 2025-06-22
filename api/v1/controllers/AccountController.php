@@ -35,15 +35,15 @@ class AccountController extends ResponseHelper {
     public function deleteAccountById($accountId) {
         $result = $this->accountModel->deleteAccountById($accountId);
         if (isset($result['error'])) {
-            return $this->responseFail('Erro ao deletar o produto', 500);
+            return $this->responseFail('Erro ao deletar o registro', 500);
         }
-        return $this->response(['message' => 'Produto deletado com sucesso'], 204);
+        return $this->response(['message' => 'registro deletado com sucesso'], 204);
     }
 
     public function createAccount($data) {
         $account = $this->accountModel->createAccount($data);
         if (isset($account['error'])) {
-            return $this->responseFail('Erro ao criar o produto', 500);
+            return $this->responseFail('Erro ao criar o registro', 500);
         }
         return $this->response(new AccountDTO($account), 201);
     }
@@ -51,7 +51,7 @@ class AccountController extends ResponseHelper {
     public function updateAccountById($accountId, $data) {
         $account = $this->accountModel->updateAccountById($data, $accountId);
         if (isset($account['error'])) {
-            return $this->responseFail('Erro ao atualizar o produto', 500);
+            return $this->responseFail('Erro ao atualizar o registro', 500);
         }
         $accountDTOs = array_map(function($accountData) {
             return (new AccountDTO($accountData))->toArray();

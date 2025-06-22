@@ -85,7 +85,7 @@ POST {{BASE_URL}}/accounts
 Content-Type: application/json
 
    {
-      "descricao": "Aluguel",
+      "descricao": "Internet",
       "tipo": "D"
     }
 
