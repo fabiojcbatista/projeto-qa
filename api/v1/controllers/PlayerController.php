@@ -11,7 +11,7 @@ class PlayerController extends ResponseHelper {
     }
 
     public function getPlayers() {
-        $Players = $this->playerModel->getPlayers();
+        $players = $this->playerModel->getPlayers();
         if (empty($players)) {
             return $this->responseFail('Nenhum registro encontrado', 404);
         }
