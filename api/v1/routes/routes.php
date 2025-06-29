@@ -4,6 +4,7 @@ require_once __DIR__ . '/../controllers/UserController.php';
 require_once __DIR__ . '/../controllers/ProductController.php';
 require_once __DIR__ . '/../controllers/AccountController.php';
 require_once __DIR__ . '/../controllers/AccountTransactionController.php';
+require_once __DIR__ . '/../controllers/PlayerController.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -45,6 +46,7 @@ function handleRequest($db) {
     $productController = new ProductController($db);
     $accountController = new AccountController($db);
     $accountTransactionController = new AccountTransactionController($db);
+    $playerController = new PlayerController($db);
     $routes = [
         'POST' => [
             '/projeto-qa/api/v1/login' => function() use ($authController, $input) {
@@ -61,6 +63,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/accountTransactions' => function() use ($accountTransactionController, $input) {
                 return $accountTransactionController->createAccountTransaction($input);
+            },
+            '/projeto-qa/api/v1/players' => function() use ($playerController, $input) {
+                return $playerController->createPlayer($input);
             },
         ],
         'GET' => [
@@ -88,6 +93,12 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/accountTransactions/:accountTransactionId' => function($accountTransactionId) use ($accountTransactionController, $input) {
                 return $accountTransactionController->getAccountTransactionById($accountTransactionId);
             },
+            '/projeto-qa/api/v1/players' => function() use ($playerController, $input) {
+                return $playerController->getPlayers();
+            },
+            '/projeto-qa/api/v1/players/:playerId' => function($playerId) use ($playerController, $input) {
+                return $playerController->getPlayerById($playerId);
+            },
         ],
         'PUT' => [
             '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -102,6 +113,9 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/accountTransactions/:accountTransactionId' => function($accountTransactionId) use ($accountTransactionController, $input) {
                 return $accountTransactionController->UpdateAccountTransactionById($accountTransactionId,$input);
             },
+            '/projeto-qa/api/v1/players/:playerId' => function($playerId) use ($playerController, $input) {
+                return $playerController->UpdatePlayerById($playerId,$input);
+            },
         ],
         'DELETE' => [
            '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -115,6 +129,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/accountTransactions/:accountTransactionId' => function($accountTransactionId) use ($accountTransactionController, $input) {
                 return $accountTransactionController->deleteAccountTransactionById($accountTransactionId);
+            },
+            '/projeto-qa/api/v1/players/:playerId' => function($playerId) use ($playerController, $input) {
+                return $playerController->deletePlayerById($playerId);
             },
         ]
     ];
