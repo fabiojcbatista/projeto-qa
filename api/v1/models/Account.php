@@ -12,7 +12,7 @@ class Account extends BaseModel {
     }
 
     public function getAccountByDescription($description) {
-        $conditions = ['descricao' => $nome];
+        $conditions = ['descricao' => $description];
         return $this->read($this->table, $conditions);
     }
         

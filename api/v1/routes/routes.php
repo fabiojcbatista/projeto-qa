@@ -5,6 +5,7 @@ require_once __DIR__ . '/../controllers/ProductController.php';
 require_once __DIR__ . '/../controllers/AccountController.php';
 require_once __DIR__ . '/../controllers/AccountTransactionController.php';
 require_once __DIR__ . '/../controllers/PlayerController.php';
+require_once __DIR__ . '/../controllers/TeamController.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -47,6 +48,7 @@ function handleRequest($db) {
     $accountController = new AccountController($db);
     $accountTransactionController = new AccountTransactionController($db);
     $playerController = new PlayerController($db);
+    $teamController = new TeamController($db);
     $routes = [
         'POST' => [
             '/projeto-qa/api/v1/login' => function() use ($authController, $input) {
@@ -66,6 +68,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/players' => function() use ($playerController, $input) {
                 return $playerController->createPlayer($input);
+            },
+            '/projeto-qa/api/v1/teams' => function() use ($teamController, $input) {
+                return $teamController->createTeam($input);
             },
         ],
         'GET' => [
@@ -99,6 +104,12 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/players/:playerId' => function($playerId) use ($playerController, $input) {
                 return $playerController->getPlayerById($playerId);
             },
+            '/projeto-qa/api/v1/teams' => function() use ($teamController, $input) {
+                return $teamController->getTeams();
+            },
+            '/projeto-qa/api/v1/teams/:teamId' => function($teamId) use ($teamController, $input) {
+                return $teamController->getTeamById($teamId);
+            },
         ],
         'PUT' => [
             '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -116,6 +127,9 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/players/:playerId' => function($playerId) use ($playerController, $input) {
                 return $playerController->UpdatePlayerById($playerId,$input);
             },
+            '/projeto-qa/api/v1/teams/:teamId' => function($teamId) use ($teamController, $input) {
+                return $teamController->UpdateTeamById($teamId,$input);
+            },
         ],
         'DELETE' => [
            '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -132,6 +146,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/players/:playerId' => function($playerId) use ($playerController, $input) {
                 return $playerController->deletePlayerById($playerId);
+            },
+            '/projeto-qa/api/v1/teams/:teamId' => function($teamId) use ($teamController, $input) {
+                return $teamController->deleteTeamById($teamId);
             },
         ]
     ];
