@@ -1,0 +1,892 @@
+openapi: 3.0.0
+info:
+  title: Projeto QA API
+  description: API documentation for Projeto QA
+  version: 1.0.0
+servers:
+  - url: http://localhost/projeto-qa/api/v1
+    description: Local server
+paths:
+  /login:
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
+
+  /users:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Create a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}:
+    get:
+      summary: Get user by ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+    put:
+      summary: Update user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      summary: Delete user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: User deleted
+
+  /products:
+    get:
+      summary: Get all products
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      summary: Create a product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+
+  /products/{productId}:
+    get:
+      summary: Get product by ID
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    put:
+      summary: Update product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Product updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    delete:
+      summary: Delete product
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Product deleted
+
+  /accounts:
+    get:
+      summary: Get all accounts
+      responses:
+        '200':
+          description: List of accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+    post:
+      summary: Create an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '201':
+          description: Account created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+
+  /accounts/{accountId}:
+    get:
+      summary: Get account by ID
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    put:
+      summary: Update account
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          description: Account updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    delete:
+      summary: Delete account
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Account deleted
+
+  /accountTransactions:
+    get:
+      summary: Get all account transactions
+      responses:
+        '200':
+          description: List of transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountTransaction'
+    post:
+      summary: Create a transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountTransaction'
+      responses:
+        '201':
+          description: Transaction created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountTransaction'
+
+  /accountTransactions/{accountTransactionId}:
+    get:
+      summary: Get transaction by ID
+      parameters:
+        - name: accountTransactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountTransaction'
+    put:
+      summary: Update transaction
+      parameters:
+        - name: accountTransactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountTransaction'
+      responses:
+        '200':
+          description: Transaction updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountTransaction'
+    delete:
+      summary: Delete transaction
+      parameters:
+        - name: accountTransactionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Transaction deleted
+
+  /players:
+    get:
+      summary: Get all players
+      responses:
+        '200':
+          description: List of players
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+    post:
+      summary: Create a player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Player'
+      responses:
+        '201':
+          description: Player created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+
+  /players/{playerId}:
+    get:
+      summary: Get player by ID
+      parameters:
+        - name: playerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Player details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+    put:
+      summary: Update player
+      parameters:
+        - name: playerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Player'
+      responses:
+        '200':
+          description: Player updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+    delete:
+      summary: Delete player
+      parameters:
+        - name: playerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Player deleted
+
+  /teams:
+    get:
+      summary: Get all teams
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+    post:
+      summary: Create a team
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+      responses:
+        '201':
+          description: Team created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+
+  /teams/{teamId}:
+    get:
+      summary: Get team by ID
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Team details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+    put:
+      summary: Update team
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+      responses:
+        '200':
+          description: Team updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+    delete:
+      summary: Delete team
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Team deleted
+
+  /roundScores:
+    get:
+      summary: Get all round scores
+      responses:
+        '200':
+          description: List of round scores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoundScore'
+    post:
+      summary: Create a round score
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoundScore'
+      responses:
+        '201':
+          description: Round score created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundScore'
+
+  /roundScores/{roundScoreId}:
+    get:
+      summary: Get round score by ID
+      parameters:
+        - name: roundScoreId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Round score details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundScore'
+    put:
+      summary: Update round score
+      parameters:
+        - name: roundScoreId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoundScore'
+      responses:
+        '200':
+          description: Round score updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoundScore'
+    delete:
+      summary: Delete round score
+      parameters:
+        - name: roundScoreId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Round score deleted
+
+  /leagues:
+    get:
+      summary: Get all leagues
+      responses:
+        '200':
+          description: List of leagues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/League'
+    post:
+      summary: Create a league
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/League'
+      responses:
+        '201':
+          description: League created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/League'
+
+  /leagues/{leagueId}:
+    get:
+      summary: Get league by ID
+      parameters:
+        - name: leagueId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: League details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/League'
+    put:
+      summary: Update league
+      parameters:
+        - name: leagueId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/League'
+      responses:
+        '200':
+          description: League updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/League'
+    delete:
+      summary: Delete league
+      parameters:
+        - name: leagueId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: League deleted
+
+  /awards:
+    get:
+      summary: Get all awards
+      responses:
+        '200':
+          description: List of awards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Award'
+    post:
+      summary: Create an award
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Award'
+      responses:
+        '201':
+          description: Award created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+
+  /awards/{awardId}:
+    get:
+      summary: Get award by ID
+      parameters:
+        - name: awardId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Award details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+    put:
+      summary: Update award
+      parameters:
+        - name: awardId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Award'
+      responses:
+        '200':
+          description: Award updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Award'
+    delete:
+      summary: Delete award
+      parameters:
+        - name: awardId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Award deleted
+
+  /teamLeagues:
+    get:
+      summary: Get all team leagues
+      responses:
+        '200':
+          description: List of team leagues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamLeague'
+    post:
+      summary: Create a team league association
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamLeague'
+      responses:
+        '201':
+          description: Team League association created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamLeague'
+    delete:
+      summary: Delete team league association
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamLeague'
+      responses:
+        '204':
+          description: Team League association deleted
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string
+        nivel:
+          type: string
+    Product:
+      type: object
+      properties:
+        codProduto:
+          type: integer
+        nmProduto:
+          type: string
+        vlProduto:
+          type: number
+          format: float
+        dtProduto:
+          type: string
+          format: date
+        qtProduto:
+          type: integer
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+        descricao:
+          type: string
+        tipo:
+          type: string
+    AccountTransaction:
+      type: object
+      properties:
+        id:
+          type: integer
+        id_conta:
+          type: integer
+        id_usuario:
+          type: integer
+        valor_vencimento:
+          type: number
+          format: float
+        valor_pagto:
+          type: number
+          format: float
+        data_venc:
+          type: string
+          format: date
+        data_pgto:
+          type: string
+          format: date
+    Player:
+      type: object
+      properties:
+        id_cartoleiro:
+          type: integer
+        nome:
+          type: string
+    Team:
+      type: object
+      properties:
+        id_time_cartola:
+          type: integer
+        id_cartoleiro:
+          type: integer
+        ind_representante:
+          type: string
+        nome:
+          type: string
+        pontos:
+          type: number
+          format: float
+        ano:
+          type: integer
+    RoundScore:
+      type: object
+      properties:
+        id_pontuacao_rodada:
+          type: integer
+        id_time_cartola:
+          type: integer
+        pontos:
+          type: number
+          format: float
+        ano:
+          type: integer
+    League:
+      type: object
+      properties:
+        id_liga:
+          type: integer
+        nome:
+          type: string
+        dt_ini:
+          type: string
+          format: date
+        dt_fim:
+          type: string
+          format: date
+    Award:
+      type: object
+      properties:
+        id_premiacao:
+          type: integer
+        id_liga:
+          type: integer
+        pos:
+          type: integer
+        valor:
+          type: number
+          format: float
+    TeamLeague:
+      type: object
+      properties:
+        id_liga:
+          type: integer
+        id_time_cartola:
+          type: integer
