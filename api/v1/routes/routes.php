@@ -7,6 +7,9 @@ require_once __DIR__ . '/../controllers/AccountTransactionController.php';
 require_once __DIR__ . '/../controllers/PlayerController.php';
 require_once __DIR__ . '/../controllers/TeamController.php';
 require_once __DIR__ . '/../controllers/RoundScoreController.php';
+require_once __DIR__ . '/../controllers/LeagueController.php';
+require_once __DIR__ . '/../controllers/AwardController.php';
+require_once __DIR__ . '/../controllers/TeamLeagueController.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -51,6 +54,9 @@ function handleRequest($db) {
     $playerController = new PlayerController($db);
     $teamController = new TeamController($db);
     $roundScoreController = new RoundScoreController($db);
+    $leagueController = new LeagueController($db);
+    $awardController = new AwardController($db);
+    $teamLeagueController = new TeamLeagueController($db);
     $routes = [
         'POST' => [
             '/projeto-qa/api/v1/login' => function() use ($authController, $input) {
@@ -76,6 +82,15 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/roundScores' => function() use ($roundScoreController, $input) {
                 return $roundScoreController->createRoundScore($input);
+            },
+            '/projeto-qa/api/v1/leagues' => function() use ($leagueController, $input) {
+                return $leagueController->createLeague($input);
+            },
+            '/projeto-qa/api/v1/awards' => function() use ($awardController, $input) {
+                return $awardController->createAward($input);
+            },
+            '/projeto-qa/api/v1/teamLeagues' => function() use ($teamLeagueController, $input) {
+                return $teamLeagueController->createTeamLeague($input);
             },
         ],
         'GET' => [
@@ -121,6 +136,21 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/roundScores/:roundScoreId' => function($roundScoreId) use ($roundScoreController, $input) {
                 return $roundScoreController->getRoundScoreById($roundScoreId);
             },
+            '/projeto-qa/api/v1/leagues' => function() use ($leagueController, $input) {
+                return $leagueController->getLeagues();
+            },
+            '/projeto-qa/api/v1/leagues/:leagueId' => function($leagueId) use ($leagueController, $input) {
+                return $leagueController->getLeagueById($leagueId);
+            },
+            '/projeto-qa/api/v1/awards' => function() use ($awardController, $input) {
+                return $awardController->getAwards();
+            },
+            '/projeto-qa/api/v1/awards/:awardId' => function($awardId) use ($awardController, $input) {
+                return $awardController->getAwardById($awardId);
+            },
+            '/projeto-qa/api/v1/teamLeagues' => function() use ($teamLeagueController, $input) {
+                return $teamLeagueController->getTeamLeagues();
+            },
         ],
         'PUT' => [
             '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -144,6 +174,12 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/roundScores/:roundScoreId' => function($roundScoreId) use ($roundScoreController, $input) {
                 return $roundScoreController->updateRoundScoreById($roundScoreId,$input);
             },
+            '/projeto-qa/api/v1/leagues/:leagueId' => function($leagueId) use ($leagueController, $input) {
+                return $leagueController->updateLeagueById($leagueId,$input);
+            },
+            '/projeto-qa/api/v1/awards/:awardId' => function($awardId) use ($awardController, $input) {
+                return $awardController->updateAwardById($awardId,$input);
+            },
         ],
         'DELETE' => [
            '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -166,6 +202,15 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/roundScores/:roundScoreId' => function($roundScoreId) use ($roundScoreController, $input) {
                 return $roundScoreController->deleteRoundScoreById($roundScoreId);
+            },
+            '/projeto-qa/api/v1/leagues/:leagueId' => function($leagueId) use ($leagueController, $input) {
+                return $leagueController->deleteLeagueById($leagueId);
+            },
+            '/projeto-qa/api/v1/awards/:awardId' => function($awardId) use ($awardController, $input) {
+                return $awardController->deleteAwardById($awardId);
+            },
+            '/projeto-qa/api/v1/teamLeagues' => function() use ($teamLeagueController, $input) {
+                return $teamLeagueController->deleteTeamLeague($input);
             },
         ]
     ];
