@@ -6,6 +6,7 @@ require_once __DIR__ . '/../controllers/AccountController.php';
 require_once __DIR__ . '/../controllers/AccountTransactionController.php';
 require_once __DIR__ . '/../controllers/PlayerController.php';
 require_once __DIR__ . '/../controllers/TeamController.php';
+require_once __DIR__ . '/../controllers/RoundScoreController.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -49,6 +50,7 @@ function handleRequest($db) {
     $accountTransactionController = new AccountTransactionController($db);
     $playerController = new PlayerController($db);
     $teamController = new TeamController($db);
+    $roundScoreController = new RoundScoreController($db);
     $routes = [
         'POST' => [
             '/projeto-qa/api/v1/login' => function() use ($authController, $input) {
@@ -71,6 +73,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/teams' => function() use ($teamController, $input) {
                 return $teamController->createTeam($input);
+            },
+            '/projeto-qa/api/v1/roundScores' => function() use ($roundScoreController, $input) {
+                return $roundScoreController->createRoundScore($input);
             },
         ],
         'GET' => [
@@ -110,6 +115,12 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/teams/:teamId' => function($teamId) use ($teamController, $input) {
                 return $teamController->getTeamById($teamId);
             },
+            '/projeto-qa/api/v1/roundScores' => function() use ($roundScoreController, $input) {
+                return $roundScoreController->getRoundScores();
+            },
+            '/projeto-qa/api/v1/roundScores/:roundScoreId' => function($roundScoreId) use ($roundScoreController, $input) {
+                return $roundScoreController->getRoundScoreById($roundScoreId);
+            },
         ],
         'PUT' => [
             '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -130,6 +141,9 @@ function handleRequest($db) {
             '/projeto-qa/api/v1/teams/:teamId' => function($teamId) use ($teamController, $input) {
                 return $teamController->UpdateTeamById($teamId,$input);
             },
+            '/projeto-qa/api/v1/roundScores/:roundScoreId' => function($roundScoreId) use ($roundScoreController, $input) {
+                return $roundScoreController->updateRoundScoreById($roundScoreId,$input);
+            },
         ],
         'DELETE' => [
            '/projeto-qa/api/v1/users/:userId' => function($userId) use ($userController, $input) {
@@ -149,6 +163,9 @@ function handleRequest($db) {
             },
             '/projeto-qa/api/v1/teams/:teamId' => function($teamId) use ($teamController, $input) {
                 return $teamController->deleteTeamById($teamId);
+            },
+            '/projeto-qa/api/v1/roundScores/:roundScoreId' => function($roundScoreId) use ($roundScoreController, $input) {
+                return $roundScoreController->deleteRoundScoreById($roundScoreId);
             },
         ]
     ];
