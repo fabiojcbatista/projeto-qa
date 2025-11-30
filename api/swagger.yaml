@@ -4,7 +4,7 @@ info:
   description: API documentation for Projeto QA
   version: 1.0.0
 servers:
-  - url: http://localhost/projeto-qa/api/v1
+  - url: ../v1
     description: Local server
 paths:
   /login:
