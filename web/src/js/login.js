@@ -1,29 +1,29 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.querySelector('.form-login');
     const errorMessage = document.querySelector('.alert-danger');
 
     if (loginForm) {
-    loginForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        const senha = document.getElementById('senha').value;
+        loginForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
 
-        try {
-            const response = await loginUser(email, senha);
-            if (!response) {
-                showError(response.message);     
-            } else {
-                efetuarLogin();
+            try {
+                const result = await loginUser(email, senha);
+                if (result.success) {
+                    efetuarLogin();
+                } else {
+                    showError(result.message || 'Usuário ou senha inválida.');
+                }
+            } catch (error) {
+                showError('Erro ao tentar realizar login.');
             }
-        } catch (error) {
-            showError('Usuário ou senha inválida.');
-        }
-    });
-}
+        });
+    }
 
-function efetuarLogin() {
-    window.open(`produtos.html?teste=123`, '_self');
-}
+    function efetuarLogin() {
+        window.open(`produtos.html?teste=123`, '_self');
+    }
 
 
     function showError(message) {
@@ -32,18 +32,24 @@ function efetuarLogin() {
     }
 
     async function loginUser(email, senha) {
-        const response = await fetch('http://fabiojcb.atwebpages.com/projeto-qa/api/v1/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, senha })
-        });
+        try {
+            const response = await fetch('../../api/v1/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, senha })
+            });
 
-        if (!response.ok) {
-            showError('Erro de conexão com banco de dados.');
+            const data = await response.json();
+
+            if (!response.ok) {
+                return { success: false, message: data.message || 'Usuário ou senha inválida.' };
+            }
+
+            return { success: true, data: data };
+        } catch (error) {
+            return { success: false, message: 'Erro de conexão com o servidor.' };
         }
-
-        return response.json();
     }
 });
